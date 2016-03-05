@@ -1,0 +1,133 @@
+lightmetrica:
+  version: 1.0.0
+
+  assets:
+    sensor_1:
+      interface: sensor
+      type: pinhole
+      params:
+        We: 1 1 1
+        fov: 45
+        film: film_1
+
+    sensor_2:
+      interface: sensor
+      type: thinlens
+      params:
+        We: 1 1 1
+        fov: 45
+        film: film_1
+        lens_radius: {{r}}
+        focal_distance: {{d}}
+
+    film_1:
+      interface: film
+      type: hdr
+      params:
+        type: png
+        w: {{s}}
+        h: {{s}}
+
+    light_1:
+      interface: light
+      type: area
+      params:
+        Le: 1 1 1
+
+    mesh_quad:
+      interface: trianglemesh
+      type: raw
+      params:
+        positions: >
+          -1 -1 0
+          1 -1 0
+          1 1 0
+          -1 1 0
+        normals: >
+          0 0 1
+          0 0 1
+          0 0 1
+          0 0 1
+        texcoords: >
+          0 0
+          1 0
+          1 1
+          0 1
+        faces: > 
+          0 1 2 
+          0 2 3 
+          
+
+    mesh_bunny:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: bunny.obj
+
+    # BSDFs
+    bsdf_while:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 1 1 1
+
+    checker:
+      interface: texture
+      type: test
+
+    bsdf_red:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 1 0 0
+
+    bsdf_black:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0 0 0
+
+  scene:
+    sensor: n1
+    nodes:
+      - id: n1
+        sensor: sensor_2
+        transform:
+          lookat:
+            eye: 2 2 2
+            center: 0 0 0
+            up: 0 1 0
+
+      - id: n2
+        transform:
+          translate: 0 0 -1
+        light: light_1
+        mesh: mesh_quad
+        bsdf: bsdf_black
+
+      - id: n3
+        transform:
+          translate: 0 -1 0
+          rotate:
+            axis: 0 1 0
+            angle: 30
+        mesh: mesh_bunny
+        bsdf: bsdf_red
+
+      - id: n4
+        transform:
+          translate: 0 -1 0
+          rotate:
+            axis: 1 0 0 
+            angle: -90
+          scale: 10 10 10
+        mesh: mesh_quad
+        bsdf: bsdf_while
+
+  renderer:
+    type: pt
+    params:
+      num_threads: -1
+      render_time: {{t}}
+      #num_samples: 100000000
+      max_num_vertices: 5

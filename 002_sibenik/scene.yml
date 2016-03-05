@@ -1,0 +1,264 @@
+lightmetrica:
+  version: 1.0.0
+
+  # --------------------------------------------------------------------------------
+  assets:
+    sensor_1:
+      interface: sensor
+      type: pinhole
+      params:
+        We: 1 1 1
+        fov: 60
+        film: film_1
+
+    film_1:
+      interface: film
+      type: hdr
+      params:
+        type: hdr
+        w: 1000
+        h: 1000
+
+    light_1:
+      interface: light
+      type: area
+      params:
+        Le: 1 1 1
+
+    # Meshes
+    mesh_Plane:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.obj
+
+    bsdf_black:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0 0 0
+
+    #
+    mesh_Object__0:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.obj
+
+    bsdf_Object__0:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0.400000 0.356078 0.003138
+
+    #
+    mesh_Object__0.001:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.001.obj
+
+    bsdf_Object__0.001:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0.627451 0.627451 0.627451
+
+    #
+    mesh_Object__0.003:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.003.obj
+
+    tex_kamen:
+      interface: texture
+      type: bitmap
+      params:
+        path: kamen.png
+
+    kamen:
+      interface: bsdf
+      type: diffuse
+      params:
+        TexR: tex_kamen
+
+    #
+    mesh_Object__0.004:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.004.obj
+
+    tex_KAMEN-stup:
+      interface: texture
+      type: bitmap
+      params:
+        path: KAMEN-stup.png
+
+    KAMEN-stup:
+      interface: bsdf
+      type: diffuse
+      params:
+        TexR: tex_KAMEN-stup
+
+    #
+    mesh_Object__0.005:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.005.obj
+
+    tex_mramor6x6:
+      interface: texture
+      type: bitmap
+      params:
+        path: mramor6x6.png
+
+    mramor6x6:
+      interface: bsdf
+      type: diffuse
+      params:
+        TexR: tex_mramor6x6
+
+    #
+    mesh_Object__0.006:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.006.obj
+
+    bsdf_Object__0.006:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0.437019 0.175686 0.147138
+
+    #
+    mesh_Object__0.007:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.007.obj
+
+    #
+    mesh_Object__0.008:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.008.obj
+
+    #
+    mesh_Object__0.010:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.010.obj
+
+    #
+    mesh_Object__0.011:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.011.obj
+
+    bsdf_Object__0.011:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0.352941 0.083138 0.039216
+
+    #
+    mesh_Object__0.012:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.012.obj
+
+
+    #
+    mesh_Object__0.013:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.013.obj
+
+    bsdf_Object__0.013:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0.026666 0.252549 0.029804
+
+    #
+    mesh_Object__0.014:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Object__0.014.obj
+
+    bsdf_Object__0.014:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0.032942 0.058039 0.313726
+
+  # --------------------------------------------------------------------------------
+  scene:
+    sensor: sensor
+    nodes:
+      - id: sensor
+        sensor: sensor_1
+        transform:
+          lookat:
+            eye: -17 -14 3
+            center: 19 -3 -10
+            up: 0 1 0
+
+      - light: light_1
+        mesh: mesh_Plane
+        bsdf: bsdf_black
+
+      - mesh: mesh_Object__0.001
+        bsdf: bsdf_Object__0.001
+
+      - mesh: mesh_Object__0.003
+        bsdf: kamen
+
+      - mesh: mesh_Object__0.004
+        bsdf: KAMEN-stup
+
+      - mesh: mesh_Object__0.005
+        bsdf: mramor6x6
+
+      - mesh: mesh_Object__0.006
+        bsdf: bsdf_Object__0.006
+
+      - mesh: mesh_Object__0.007
+        bsdf: kamen
+
+      - mesh: mesh_Object__0.008
+        bsdf: kamen
+
+      - mesh: mesh_Object__0.010
+        bsdf: KAMEN-stup
+
+      - mesh: mesh_Object__0.011
+        bsdf: bsdf_Object__0.011
+
+      - mesh: mesh_Object__0.012
+        bsdf: KAMEN-stup
+
+      - mesh: mesh_Object__0.013
+        bsdf: bsdf_Object__0.013
+
+      - mesh: mesh_Object__0.014
+        bsdf: bsdf_Object__0.014
+
+  # --------------------------------------------------------------------------------
+  renderer:
+    type: bdpt
+    params:
+      num_threads: -1
+      render_time: 30
+      #num_samples: 100000000
+      max_num_vertices: 5

@@ -1,0 +1,161 @@
+lightmetrica:
+  version: 1.0.0
+
+  assets:
+    sensor_1:
+      interface: sensor
+      type: pinhole
+      params:
+        We: 1 1 1
+        fov: 45
+        film: film_1
+
+    film_1:
+      interface: film
+      type: hdr
+      params:
+        type: hdr
+        w: 1000
+        h: 1000
+
+    light_point:
+      interface: light
+      type: point
+      params:
+        Le: 3 3 3
+        position: 1.5 1 0
+
+    bsdf_yellow:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 1 0.78431372549 0.47058823529
+
+    bsdf_red:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 1 0.64705882352 0.60784313725
+
+    bsdf_white:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 1 1 1
+
+    bsdf_1:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0.60784313725 0.80392156862 1
+
+    cube:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Cube.obj
+
+    plane_002:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.002.obj
+
+    plane:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.obj
+
+    plane_001:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.001.obj
+
+    plane_003:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.003.obj
+
+    plane_004:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.004.obj
+
+    plane_005:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.005.obj
+
+    plane_006:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.006.obj
+
+    plane_007:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.007.obj
+
+    plane_008:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.008.obj
+
+  scene:
+    sensor: sensor
+    nodes:
+      - id: sensor
+        sensor: sensor_1
+        transform:
+          lookat:
+            eye: 0 1.9 4
+            center: 0 0.75 0
+            up: 0 1 0
+
+      - light: light_point
+
+      - mesh: cube
+        bsdf: bsdf_yellow
+
+      - mesh: plane
+        bsdf: bsdf_white
+
+      - mesh: plane_001
+        bsdf: bsdf_white
+
+      - mesh: plane_002
+        bsdf: bsdf_red
+
+      - mesh: plane_003
+        bsdf: bsdf_1
+
+      - mesh: plane_004
+        bsdf: bsdf_1
+
+      - mesh: plane_005
+        bsdf: bsdf_1
+
+      - mesh: plane_006
+        bsdf: bsdf_1
+
+      - mesh: plane_007
+        bsdf: bsdf_1
+
+      - mesh: plane_008
+        bsdf: bsdf_white
+
+  renderer:
+    type: bdpt
+    params:
+      num_threads: -1
+      render_time: 30
+      #num_samples: 100000000
+      max_num_vertices: 5

@@ -1,0 +1,155 @@
+# 007
+lightmetrica:
+  version: 1.0.0
+
+  assets:
+    sensor_1:
+      interface: sensor
+      type: pinhole
+      params:
+        We: 1 1 1
+        fov: 30
+        film: film_1
+
+    film_1:
+      interface: film
+      type: hdr
+      params:
+        type: hdr
+        w: 1000
+        h: 500
+
+    light_1:
+      interface: light
+      type: area
+      params:
+        Le: 10 10 10
+
+    bsdf_white:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 1 1 1
+
+    bsdf_black:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 0 0 0
+
+    mesh_light:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.001.obj
+
+    mesh_plane_1:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.obj
+
+    mesh_plane_2:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Plane.002.obj
+
+    mesh_sphere_1:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Icosphere.obj
+
+    mesh_sphere_2:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Icosphere.001.obj
+
+    mesh_sphere_3:
+      interface: trianglemesh
+      type: assimp
+      params:
+        path: Icosphere.002.obj
+
+    bsdf_D:
+      interface: bsdf
+      type: diffuse
+      params:
+        R: 1 0.78431372549 0.47058823529
+
+    bsdf_G:
+      interface: bsdf
+      type: cook_torrance
+      params:
+        R: 1 0.64705882352 0.60784313725
+        eta: 0.140000 0.129000 0.158500
+        k: 4.586250 3.348125 2.329375
+        roughness: 0.1
+
+    bsdf_S_1:
+      interface: bsdf
+      type: reflect_all
+      params:
+        R: 0.60784313725 0.80392156862 1
+
+    bsdf_S_2:
+      interface: bsdf
+      type: refract_all
+      params:
+        R: 0.60784313725 0.80392156862 1
+        eta1: 1
+        eta2: 2
+
+    bsdf_S_3:
+      interface: bsdf
+      type: flesnel
+      params:
+        R: 0.60784313725 0.80392156862 1
+        eta1: 1
+        eta2: 2
+
+  scene:
+    sensor: sensor
+    nodes:
+      - id: sensor
+        sensor: sensor_1
+        transform:
+          lookat:
+            eye:  0 5 10
+            center: 0 1 0
+            up: 0 1 0
+
+      - id: light
+        light: light_1
+        mesh: mesh_light
+        bsdf: bsdf_black
+
+      - id: plane_1
+        mesh: mesh_plane_1
+        bsdf: bsdf_white
+
+      - id: plane_2
+        mesh: mesh_plane_2
+        bsdf: bsdf_white
+
+      - id: sphere_1
+        mesh: mesh_sphere_1
+        bsdf: bsdf_D
+
+      - id: sphere_2
+        mesh: mesh_sphere_2
+        bsdf: bsdf_G
+
+      - id: sphere_3
+        mesh: mesh_sphere_3
+        bsdf: bsdf_S_3
+
+  renderer:
+    type: bdpt
+    params:
+      num_threads: -1
+      render_time: 30
+      #num_samples: 100000000
+      max_num_vertices: 5
