@@ -168,7 +168,6 @@ lightmetrica:
   renderer:
     type: bdpt
     params:
-      num_threads: -1
       render_time: 5
       #num_samples: 100000000
       max_num_vertices: 5

@@ -10,23 +10,13 @@ lightmetrica:
         fov: 45
         film: film_1
 
-    sensor_2:
-      interface: sensor
-      type: thinlens
-      params:
-        We: 1 1 1
-        fov: 45
-        film: film_1
-        lens_radius: {{r}}
-        focal_distance: {{d}}
-
     film_1:
       interface: film
       type: hdr
       params:
         type: png
-        w: {{s}}
-        h: {{s}}
+        w: 1000
+        h: 1000
 
     light_1:
       interface: light
@@ -91,7 +81,7 @@ lightmetrica:
     sensor: n1
     nodes:
       - id: n1
-        sensor: sensor_2
+        sensor: sensor_1
         transform:
           lookat:
             eye: 2 2 2
@@ -127,7 +117,6 @@ lightmetrica:
   renderer:
     type: pt
     params:
-      num_threads: -1
-      render_time: {{t}}
+      render_time: 30
       #num_samples: 100000000
       max_num_vertices: 5
